@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productos destacados - Beauty Glow</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="catalog-body">
+  <div class="container py-5">
+    <nav class="d-flex justify-content-end flex-wrap gap-2 mb-4" aria-label="Navegación principal">
+      <a href="../index.html" class="btn btn-outline-pink">Inicio</a>
+      <a href="catalogo.html" class="btn btn-outline-pink">Catálogo</a>
+      <a href="pagina 4" class="btn btn-outline-pink">Tutoriales</a>
+      <a href="../juga_gana.html" class="btn btn-warning">🎮 Juega y Gana</a>
+      <a href="carrito.html" class="btn btn-pink">🛒 Carrito</a>
+    </nav>
+
+    <header class="mb-5 text-center">
+      <p class="eyebrow">Beauty Glow</p>
+      <h1 class="catalog-title display-4 fw-bold">Productos destacados</h1>
+      <p class="catalog-subtitle mx-auto mt-3">Descubre nuestras opciones favoritas para resaltar tu belleza con estilo, brillo y confianza.</p>
+    </header>
+
+    <div class="d-flex justify-content-center">
+      <div id="featuredProductsCarousel" class="carousel slide shadow-lg rounded-4 overflow-hidden" data-bs-ride="carousel" data-bs-interval="3000" style="max-width: 1100px; width: 100%;">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row g-4 p-3">
+            <div class="col-md-4">
+              <div class="overflow-hidden rounded-4 border border-1 border-warning-subtle h-100 bg-dark">
+                <img class="img-fluid w-100 product-img" src="./TIENDA DE MAQUILLAJE_files/polvo.png" alt="Polvo suelto" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="overflow-hidden rounded-4 border border-1 border-warning-subtle h-100 bg-dark">
+                <img class="img-fluid w-100 product-img" src="./gloss.png" alt="Gloss" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="overflow-hidden rounded-4 border border-1 border-warning-subtle h-100 bg-dark">
+                <img class="img-fluid w-100 product-img" src="./mascarilla.png" alt="Mascarilla" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="row g-4 p-3">
+            <div class="col-md-4">
+              <div class="overflow-hidden rounded-4 border border-1 border-warning-subtle h-100 bg-dark">
+                <img class="img-fluid w-100 product-img" src="./TIENDA DE MAQUILLAJE_files/broncer.png" alt="Broncer" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="overflow-hidden rounded-4 border border-1 border-warning-subtle h-100 bg-dark">
+                <img class="img-fluid w-100 product-img" src="./TIENDA DE MAQUILLAJE_files/protector solar.png" alt="Protector solar" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="overflow-hidden rounded-4 border border-1 border-warning-subtle h-100 bg-dark">
+                <img class="img-fluid w-100 product-img" src="./TIENDA DE MAQUILLAJE_files/crema hidratante.png" alt="Crema hidratante" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="catalogo.html" class="btn btn-pink btn-lg px-4">Ver catálogo completo</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

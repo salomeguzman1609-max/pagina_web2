@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catálogo de Maquillaje</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body{font-family: Poppins, sans-serif; padding-top:20px}
+    .card-img-top{height:200px;object-fit:cover}
+    .price{font-weight:700;color:#d63384}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Catálogo de Maquillaje</h1>
+      <div class="d-flex gap-2">
+        <a href="../index.html" class="btn btn-outline-secondary">Inicio</a>
+        <a href="catalogo.html" class="btn btn-outline-secondary">Catálogo</a>
+        <a href="pagina 5" class="btn btn-outline-secondary">Información</a>
+        <a href="../juga_gana.html" class="btn btn-warning">🎮 Juega y Gana</a>
+      </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="productsGrid">
+
+      <div class="col">
+        <div class="card h-100 product-item">
+          <img src="https://via.placeholder.com/400x300?text=Base+1" class="card-img-top" alt="Base" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Base Líquida Satinada</h5>
+            <p class="mb-1 price">$12.99</p>
+            <p class="card-text">Cobertura media, acabado natural y resistente al sudor.</p>
+            <div class="mt-auto">
+              <button class="btn btn-primary view-product-btn" 
+                data-name="Base Líquida Satinada" 
+                data-price="$12.99" 
+                data-desc="Cobertura media, acabado natural y resistente al sudor. Disponible en varias tonalidades." 
+                data-img="https://via.placeholder.com/600x400?text=Base+1">Ver producto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 product-item">
+          <img src="https://via.placeholder.com/400x300?text=Rubor+3" class="card-img-top" alt="Rubor" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Rubor en Polvo</h5>
+            <p class="mb-1 price">$7.50</p>
+            <p class="card-text">Fácil de difuminar, colorizable y de larga duración.</p>
+            <div class="mt-auto">
+              <button class="btn btn-primary view-product-btn" 
+                data-name="Rubor en Polvo" 
+                data-price="$7.50" 
+                data-desc="Fácil de difuminar, colorizable y de larga duración. Ideal para todo tipo de piel." 
+                data-img="https://via.placeholder.com/600x400?text=Rubor+3">Ver producto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 product-item">
+          <img src="https://via.placeholder.com/400x300?text=Paleta+Sombras" class="card-img-top" alt="Paleta" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Paleta de Sombras 12 tonos</h5>
+            <p class="mb-1 price">$18.00</p>
+            <p class="card-text">Tonos mates y brillantes, pigmentación intensa y fácil mezcla.</p>
+            <div class="mt-auto">
+              <button class="btn btn-primary view-product-btn" 
+                data-name="Paleta de Sombras 12 tonos" 
+                data-price="$18.00" 
+                data-desc="Tonos mates y brillantes, pigmentación intensa y fácil mezcla. Incluye espejo." 
+                data-img="https://via.placeholder.com/600x400?text=Paleta+Sombras">Ver producto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 product-item">
+          <img src="https://via.placeholder.com/400x300?text=Rimel" class="card-img-top" alt="Rímel" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Rímel Volumen Extremo</h5>
+            <p class="mb-1 price">$9.25</p>
+            <p class="card-text">Cerdas que separan, aporta volumen sin grumos.</p>
+            <div class="mt-auto">
+              <button class="btn btn-primary view-product-btn" 
+                data-name="Rímel Volumen Extremo" 
+                data-price="$9.25" 
+                data-desc="Cerdas que separan, aporta volumen sin grumos. Resistente al agua." 
+                data-img="https://via.placeholder.com/600x400?text=Rimel">Ver producto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body d-flex gap-3">
+          <img id="modalImg" src="" alt="" style="width:45%;object-fit:cover;border-radius:4px">
+          <div>
+            <p class="h4" id="modalName"></p>
+            <p class="price h5" id="modalPrice"></p>
+            <p id="modalDesc"></p>
+            <div class="mt-3">
+              <button class="btn btn-success">Comprar ahora</button>
+              <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.querySelectorAll('.view-product-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const name = btn.dataset.name || '';
+        const price = btn.dataset.price || '';
+        const desc = btn.dataset.desc || '';
+        const img = btn.dataset.img || '';
+        document.getElementById('modalName').textContent = name;
+        document.getElementById('modalPrice').textContent = price;
+        document.getElementById('modalDesc').textContent = desc;
+        document.getElementById('modalImg').src = img;
+        const modalEl = document.getElementById('productModal');
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+      });
+    });
+  </script>
+</body>
+</html>

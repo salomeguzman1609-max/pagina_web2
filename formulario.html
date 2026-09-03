@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Glow | Formulario personalizado</title>
+    <style>
+        :root {
+            --ink: #f7f1d0;
+            --muted: #d8cfae;
+            --rose: #d4af37;
+            --rose-dark: #b88a1f;
+            --rose-soft: #211d12;
+            --gold: #d7a83c;
+            --line: #8f7425;
+            --paper: #11100d;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--ink);
+            font-family: Georgia, 'Times New Roman', serif;
+            background: radial-gradient(circle at 10% 0%, #3a3016 0, transparent 35%),
+                linear-gradient(135deg, #050505 0%, #11100d 55%, #2a210c 100%);
+        }
+
+        .page {
+            width: min(1080px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 56px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .brand {
+            color: var(--rose-dark);
+            font-size: 1.25rem;
+            font-weight: bold;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .back-link { color: var(--rose-dark); font-weight: bold; }
+
+        .home-button {
+            padding: 10px 16px;
+            border-radius: 6px;
+            color: #2d2020;
+            background: var(--gold);
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .home-button:hover { background: #f0c95f; }
+
+        .game-button {
+            padding: 10px 16px;
+            border-radius: 6px;
+            color: #2d2020;
+            background: #ffc107;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .game-button:hover { background: #ffb300; }
+
+        .intro {
+            max-width: 720px;
+            margin-bottom: 34px;
+        }
+
+        .eyebrow {
+            margin: 0 0 12px;
+            color: var(--rose);
+            font-family: Arial, sans-serif;
+            font-size: .78rem;
+            font-weight: bold;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 680px;
+            margin: 0;
+            font-size: clamp(2.6rem, 7vw, 5.4rem);
+            line-height: .98;
+            letter-spacing: 0;
+        }
+
+        .intro p {
+            max-width: 620px;
+            margin: 22px 0 0;
+            color: var(--muted);
+            font-family: Arial, sans-serif;
+            font-size: 1.08rem;
+            line-height: 1.65;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: .82fr 1.18fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .info-panel, .form-panel {
+            border: 1px solid rgba(212, 175, 55, .45);
+            border-radius: 12px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .35);
+        }
+
+        .info-panel {
+            padding: 30px;
+            color: #f7f1d0;
+            background: #090909;
+        }
+
+        .info-panel h2 { margin-top: 0; font-size: 2rem; }
+
+        .benefits {
+            margin: 24px 0 30px;
+            padding: 0;
+            list-style: none;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        .benefits li { margin: 16px 0; }
+        .benefits strong { display: block; color: #f2d67a; }
+
+        .start-button {
+            display: inline-block;
+            width: 100%;
+            padding: 15px 20px;
+            border: 0;
+            border-radius: 6px;
+            color: #2d2020;
+            background: var(--gold);
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .start-button:hover { background: #f0c95f; }
+
+        .form-panel {
+            padding: clamp(22px, 4vw, 38px);
+            background: var(--paper);
+        }
+
+        .form-panel h2 { margin-top: 0; font-size: 2rem; }
+        .form-note { color: var(--muted); font-family: Arial, sans-serif; line-height: 1.5; }
+
+        form { display: grid; gap: 18px; margin-top: 24px; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        label { display: grid; gap: 7px; color: var(--ink); font-family: Arial, sans-serif; font-weight: bold; }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            color: var(--ink);
+            background: #1a1915;
+            font: inherit;
+        }
+        textarea { min-height: 96px; resize: vertical; }
+        input:focus, select:focus, textarea:focus { outline: 3px solid rgba(212, 175, 55, .22); border-color: var(--rose); }
+        .submit-button { background: var(--gold); color: #111; }
+        .submit-button:hover { background: var(--rose-dark); }
+        .success { display: none; padding: 14px; border-left: 4px solid #278158; color: #17583d; background: #e8f7ef; font-family: Arial, sans-serif; line-height: 1.5; }
+        .success.visible { display: block; }
+
+        @media (max-width: 760px) {
+            .topbar { margin-bottom: 32px; }
+            .layout, .field-row { grid-template-columns: 1fr; }
+            .info-panel, .form-panel { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <header class="topbar">
+            <strong class="brand">Beauty Glow</strong>
+            <nav>
+                <a class="back-link" href="catalogo.html">Volver al catálogo</a>
+                <a class="game-button" href="../juga_gana.html">🎮 Juega y Gana</a>
+                <a class="home-button" href="../index.html">Volver al inicio</a>
+            </nav>
+        </header>
+
+        <h1 id="form-title">Formulario de Beauty Glow</h1>
+        <p class="form-note">Completa tus datos. Los campos con * son obligatorios.</p>
+
+        <form id="beauty-form" method="post" action="procesar_formulario.php">
+            <label for="nombre">Nombre *<input id="nombre" name="nombre" type="text" required></label>
+            <label for="apellido">Apellido *<input id="apellido" name="apellido" type="text" required></label>
+            <label for="correo">Correo electrónico *<input id="correo" name="correo" type="email" required></label>
+            <label for="edad">Edad *<input id="edad" name="edad" type="number" min="1" max="120" required></label>
+            <label for="telefono">Teléfono *<input id="telefono" name="telefono" type="tel" required></label>
+            <label for="pago">Tipo de pago *
+                <select id="pago" name="pago" required>
+                    <option value="">Selecciona una opción</option>
+                    <option>Tarjeta de crédito</option>
+                    <option>Tarjeta débito</option>
+                    <option>Transferencia bancaria</option>
+                    <option>Pago contra entrega</option>
+                </select>
+            </label>
+            <label for="piel">Tipo de piel *
+                <select id="piel" name="piel" required>
+                    <option value="">Selecciona una opción</option>
+                    <option>Normal</option>
+                    <option>Seca</option>
+                    <option>Mixta</option>
+                    <option>Grasa</option>
+                    <option>Sensible</option>
+                </select>
+            </label>
+            <label for="interes">Producto de mayor interés *
+                <select id="interes" name="interes" required>
+                    <option value="">Selecciona una opción</option>
+                    <option>Maquillaje</option>
+                    <option>Cuidado facial</option>
+                    <option>Labios</option>
+                    <option>Accesorios</option>
+                </select>
+            </label>
+            <label for="direccion">Dirección de entrega *<input id="direccion" name="direccion" type="text" required></label>
+            <label for="mensaje">Mensaje<textarea id="mensaje" name="mensaje" rows="4"></textarea></label>
+            <button class="start-button submit-button" type="submit">Enviar formulario</button>
+        </form>
+    </main>
+</body>
+</html>
