@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juega y Gana - Beauty Glow</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #050505 0%, #111111 35%, #c89b2b 100%);
+      font-family: Arial, sans-serif;
+      color: #f7f1d0;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: linear-gradient(90deg, #0d0d0d, #1a170d);
+      padding: 20px 0;
+      border-bottom: 2px solid #d4af37;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      color: #d4af37;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+    }
+
+    .game-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .game-title {
+      text-align: center;
+      color: #d4af37;
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      text-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+    }
+
+    .score-display {
+      text-align: center;
+      background: rgba(20, 20, 20, 0.95);
+      border: 2px solid #d4af37;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 30px;
+      font-size: 18px;
+      color: #f3e6be;
+    }
+
+    .score-display strong {
+      color: #d4af37;
+      font-size: 24px;
+    }
+
+    .question-card {
+      background: rgba(20, 20, 20, 0.95);
+      border: 2px solid #d4af37;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .product-image {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 20px auto;
+      border: 2px solid #d4af37;
+      display: block;
+    }
+
+    .question-text {
+      font-size: 18px;
+      color: #f3e6be;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .option-btn {
+      background: linear-gradient(135deg, #d4af37, #c08d1a);
+      color: #111;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      padding: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .option-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+    }
+
+    .option-btn.correct {
+      background: linear-gradient(135deg, #4caf50, #45a049);
+      border-color: #81c784;
+    }
+
+    .option-btn.wrong {
+      background: linear-gradient(135deg, #f44336, #d32f2f);
+      border-color: #ef5350;
+    }
+
+    .option-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, #0d0d0d, #1a170d);
+      border: 3px solid #d4af37;
+    }
+
+    .victory-title {
+      color: #d4af37;
+      font-weight: 700;
+      font-size: 2.5rem;
+      text-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+      animation: bounce 1s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .prize-message {
+      background: linear-gradient(90deg, #ffd700, #ffed4e);
+      color: #111;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      margin: 20px 0;
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .product-card {
+      text-align: center;
+      padding: 20px;
+      background: rgba(20, 20, 20, 0.95);
+      border: 2px solid #d4af37;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+
+    .product-card img {
+      max-width: 180px;
+      height: auto;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 2px solid #d4af37;
+    }
+
+    .product-card h3 {
+      color: #d4af37;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .product-card .price {
+      color: #f3cf65;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, #d4af37, #c08d1a);
+      color: #111;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .next-btn:hover {
+      filter: brightness(1.1);
+    }
+
+    .next-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-pink {
+      background: linear-gradient(135deg, #d4af37, #c08d1a);
+      color: #111 !important;
+      border: none;
+    }
+
+    .btn-pink:hover {
+      filter: brightness(1.1);
+    }
+
+    .btn-outline-light {
+      color: #f3e6be !important;
+      border: 2px solid #d4af37 !important;
+    }
+
+    .btn-outline-light:hover {
+      background: rgba(212, 175, 55, 0.2) !important;
+      border-color: #ffed4e !important;
+    }
+
+    .loss-title {
+      color: #f44336;
+      font-weight: 700;
+      font-size: 2.5rem;
+      text-shadow: 0 0 12px rgba(244, 67, 54, 0.35);
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .loss-message {
+      background: linear-gradient(90deg, #f44336, #d32f2f);
+      color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      margin: 20px 0;
+      box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4);
+    }
+
+    .loss-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .loss-popup {
+      background: linear-gradient(135deg, #d32f2f, #b71c1c);
+      border: 5px solid #ff9800;
+      border-radius: 30px;
+      padding: 60px 50px;
+      text-align: center;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.9);
+      max-width: 700px;
+      animation: popupScale 0.5s ease;
+    }
+
+    .loss-popup-title {
+      color: #ffeb3b;
+      font-size: 6rem;
+      font-weight: 900;
+      margin-bottom: 30px;
+      text-shadow: 0 0 40px rgba(255, 152, 0, 1), 0 0 80px rgba(255, 0, 0, 0.7);
+      animation: bounce 1s ease;
+      letter-spacing: 2px;
+    }
+
+    .loss-popup-text {
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popupScale {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.1); }
+    }
+
+    .message-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .message-popup {
+      background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+      border: 4px solid #d4af37;
+      border-radius: 25px;
+      padding: 50px 45px;
+      text-align: center;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.9);
+      max-width: 650px;
+      animation: popupScale 0.5s ease;
+    }
+
+    .message-popup-title {
+      color: #d4af37;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    }
+
+    .message-popup-text {
+      color: #f3e6be;
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .message-popup-signature {
+      color: #ffeb3b;
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 25px;
+      text-shadow: 0 0 15px rgba(255, 235, 59, 0.4);
+    }
+
+    .victory-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .victory-popup {
+      background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+      border: 5px solid #d4af37;
+      border-radius: 30px;
+      padding: 50px 50px;
+      text-align: center;
+      box-shadow: 0 30px 100px rgba(212, 175, 55, 0.4);
+      max-width: 750px;
+      animation: popupScale 0.5s ease;
+    }
+
+    .victory-popup-title {
+      color: #ffeb3b;
+      font-size: 6rem;
+      font-weight: 900;
+      margin-bottom: 25px;
+      text-shadow: 0 0 40px rgba(212, 175, 55, 1), 0 0 80px rgba(255, 215, 0, 0.8);
+      animation: bounce 1s ease;
+      letter-spacing: 3px;
+    }
+
+    .victory-popup-message {
+      color: #f3e6be;
+      font-size: 20px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .victory-product-image {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin: 25px auto;
+      border: 3px solid #d4af37;
+      display: block;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .victory-product-name {
+      color: #d4af37;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    }
+
+    .victory-product-price {
+      color: #ffeb3b;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3" style="margin-bottom: 20px;">
+        <div>
+          <h1 style="color: #d4af37; font-weight: 700; margin-bottom: 10px; text-shadow: 0 0 12px rgba(212, 175, 55, 0.35); margin: 0;">💄 Beauty Glow 💄</h1>
+          <p style="color: #f3e6be; margin: 0;">Demuestra tu conocimiento de belleza y gana un producto</p>
+        </div>
+        <div class="d-flex align-items-center gap-2" style="flex-wrap: wrap;">
+          <a href="index.html" class="btn btn-outline-light">Inicio</a>
+          <a href="imagenes10/pagina2.html" class="btn btn-outline-light">Productos destacados</a>
+          <a href="imagenes10/pagina%204" class="btn btn-outline-light">Tutoriales</a>
+          <a href="imagenes10/pagina%205" class="btn btn-outline-light">Información</a>
+          <a href="imagenes10/carrito.html" class="btn btn-pink">🛒 Carrito</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-container">
+    <h2 class="game-title">¿Cuánto sabes de maquillaje?</h2>
+    
+    <div class="score-display">
+      Puntuación: <strong id="scoreValue">0</strong> / 5
+    </div>
+
+    <div id="gameArea"></div>
+
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display:none; width:100%; padding: 15px;">SIGUIENTE PREGUNTA →</button>
+    <button class="next-btn" id="restartBtn" onclick="restartGame()" style="display:none; width:100%; padding: 15px;">🔄 JUGAR DE NUEVO</button>
+  </div>
+
+  <!-- Overlay de Mensaje de Agradecimiento -->
+  <div id="messageOverlay" class="message-overlay" style="display: none;">
+    <div class="message-popup">
+      <div class="message-popup-title">💖 Lo Sentimos 💖</div>
+      <div class="message-popup-text">
+        <p>Lo sentimos pero este juego solo tiene una oportunidad para ganar.</p>
+        <p>Gracias por participar en nuestra promoción.</p>
+        <p>Puedes intentarlo de nuevo en una siguiente compra.</p>
+      </div>
+      <div class="message-popup-signature">CON CARIÑO<br>✨ BEAUTY GLOW ✨</div>
+      <div class="d-flex gap-2 justify-content-center" style="flex-wrap: wrap; margin-top: 30px;">
+        <a href="imagenes10/catalogo.html" class="btn btn-warning btn-lg">📚 Ver Catálogo</a>
+        <a href="index.html" class="btn btn-outline-light btn-lg">🏠 Ir al Inicio</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay de Victoria -->
+  <div id="victoryOverlay" class="victory-overlay" style="display: none;">
+    <div class="victory-popup">
+      <div class="victory-popup-title">🎉 ¡GANASTE! 🎉</div>
+      <div class="victory-popup-message">
+        Beauty Glow te regala este producto por haber ganado nuestro juego.
+        <br><strong>¡Felicidades tu producto es!</strong>
+      </div>
+      <div id="victoryProductContent"></div>
+      <div class="d-flex gap-2 justify-content-center" style="flex-wrap: wrap; margin-top: 30px;">
+        <button class="btn btn-warning btn-lg" onclick="goToCatalog()">🛍️ Ver en Catálogo</button>
+        <a href="index.html" class="btn btn-outline-light btn-lg">🏠 Ir al Inicio</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay de Pérdida -->
+  <div id="lossOverlay" class="loss-overlay" style="display: none;">
+    <div class="loss-popup">
+      <div class="loss-popup-title">❌ ¡PERDISTE! ❌</div>
+      <div class="loss-popup-text">
+        Respondiste incorrectamente
+      </div>
+      <p style="color: #fff; font-size: 18px; margin-bottom: 30px;">
+        Tu puntuación fue: <strong style="color: #ffeb3b; font-size: 24px;" id="popupScore">0</strong> / 5
+      </p>
+      <div class="d-flex gap-2 justify-content-center" style="flex-wrap: wrap;">
+        <button class="btn btn-pink btn-lg" onclick="playAgain()">🎮 Intentar de Nuevo</button>
+        <a href="imagenes10/catalogo.html" class="btn btn-outline-light btn-lg">📚 Ver Catálogo</a>
+        <a href="index.html" class="btn btn-outline-light btn-lg">🏠 Ir al Inicio</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Derrota -->
+  <div class="modal fade" id="lossModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center p-5">
+          <div class="loss-title">❌ ¡PERDISTE! ❌</div>
+          
+          <div class="loss-message">
+            Lamentablemente respondiste incorrectamente
+          </div>
+
+          <p style="color: #f3e6be; font-size: 16px; margin-bottom: 20px;">
+            Tu puntuación fue: <strong id="finalScore" style="color: #d4af37; font-size: 20px;">0</strong> / 5
+          </p>
+
+          <p style="color: #f3e6be; font-size: 14px; margin-bottom: 25px;">
+            ¡No te desanimes! Aprende más sobre nuestros productos y vuelve a intentarlo.
+          </p>
+
+          <div class="d-flex gap-2 justify-content-center" style="margin-top: 20px; flex-wrap: wrap;">
+            <button class="btn btn-pink btn-lg" onclick="playAgain()">🎮 Intentar de Nuevo</button>
+            <a href="imagenes10/catalogo.html" class="btn btn-outline-light btn-lg">📚 Ver Catálogo</a>
+            <a href="index.html" class="btn btn-outline-light btn-lg">🏠 Ir al Inicio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Victoria -->
+  <div class="modal fade" id="victoryModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center p-5">
+          <div class="victory-title">🎉 ¡GANASTE! 🎉</div>
+          
+          <div class="prize-message">
+            ¡NUESTRA TIENDA TE OBSEQUIA ESTE BONO!
+          </div>
+
+          <p style="color: #f3e6be; font-size: 16px; margin-bottom: 20px;">
+            Felicidades, completaste el juego correctamente. Aquí está tu producto de regalo:
+          </p>
+
+          <div id="prizeContent" class="product-card"></div>
+
+          <div class="d-flex gap-2 justify-content-center" style="margin-top: 20px;">
+            <button class="btn btn-pink btn-lg" onclick="goToCatalog()">🛍️ Ver en Catálogo</button>
+            <button class="btn btn-pink btn-lg" onclick="playAgain()">🎮 Jugar de Nuevo</button>
+            <a href="index.html" class="btn btn-outline-light btn-lg">🏠 Ir al Inicio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      { name: "Polvo Suelto", image: "./imagenes10/TIENDA DE MAQUILLAJE_files/polvo.png", price: "$35.000" },
+      { name: "Gloss", image: "./imagenes10/gloss.png", price: "$18.000" },
+      { name: "Mascarilla", image: "./imagenes10/mascarilla.png", price: "$10.000" },
+      { name: "Broncer", image: "./imagenes10/TIENDA DE MAQUILLAJE_files/broncer.png", price: "$25.000" },
+      { name: "Primer", image: "./imagenes10/TIENDA DE MAQUILLAJE_files/primer.png", price: "$25.000" },
+      { name: "Protector Solar", image: "./imagenes10/TIENDA DE MAQUILLAJE_files/protector solar.png", price: "$26.500" }
+    ];
+
+    const questions = [
+      {
+        question: "¿Cuál es el SPF mínimo recomendado en un protector solar para rostro?",
+        options: ["SPF 30", "SPF 50", "SPF 15"],
+        correct: 0,
+        image: null
+      },
+      {
+        question: "¿En qué orden correcto se aplica el maquillaje de base?",
+        options: ["Primer → Base → Corrector → Polvo", "Base → Primer → Polvo → Corrector", "Corrector → Base → Primer → Polvo"],
+        correct: 0,
+        image: null
+      },
+      {
+        question: "¿Cuál es la función principal de un iluminador en el maquillaje?",
+        options: ["Resaltar puntos de luz en el rostro", "Cubrir imperfecciones", "Dar color a las mejillas"],
+        correct: 0,
+        image: null
+      },
+      {
+        question: "¿Cuánto tiempo debe actuar una mascarilla facial típica?",
+        options: ["10-20 minutos", "5 minutos", "30-45 minutos"],
+        correct: 0,
+        image: null
+      },
+      {
+        question: "¿Cuál es la consistencia correcta de una mascarilla de arcilla?",
+        options: ["Espesa y uniforme", "Líquida", "Muy seca"],
+        correct: 0,
+        image: null
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+
+    function loadQuestion() {
+      if (currentQuestion >= questions.length) {
+        showVictory();
+        return;
+      }
+
+      const q = questions[currentQuestion];
+      let html = '<div class="question-card">';
+      
+      if (q.image) {
+        html += `<img src="${q.image}" alt="producto" class="product-image" onerror="this.src='./imagenes10/TIENDA DE MAQUILLAJE_files/polvo.png'">`;
+      }
+      
+      html += `
+        <div class="question-text">${q.question}</div>
+        <div class="options">
+      `;
+
+      q.options.forEach((option, idx) => {
+        html += `
+          <button class="option-btn" onclick="answerQuestion(${idx}, ${q.correct})" id="opt${idx}">
+            ${option}
+          </button>
+        `;
+      });
+
+      html += '</div></div>';
+      
+      document.getElementById('gameArea').innerHTML = html;
+      document.getElementById('nextBtn').style.display = 'none';
+      answered = false;
+    }
+
+    function answerQuestion(selected, correct) {
+      if (answered) return;
+      answered = true;
+
+      const buttons = document.querySelectorAll('.option-btn');
+      
+      if (selected === correct) {
+        score++;
+        buttons[selected].classList.add('correct');
+        document.getElementById('scoreValue').textContent = score;
+
+        if (currentQuestion < questions.length - 1) {
+          setTimeout(() => {
+            document.getElementById('nextBtn').style.display = 'block';
+          }, 800);
+        } else {
+          setTimeout(() => showVictory(), 1500);
+        }
+      } else {
+        buttons[selected].classList.add('wrong');
+        buttons[correct].classList.add('correct');
+        buttons.forEach(btn => btn.disabled = true);
+        setTimeout(() => showLoss(), 600);
+      }
+    }
+
+    function showLoss() {
+      document.getElementById('popupScore').textContent = score;
+      document.getElementById('lossOverlay').style.display = 'flex';
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      loadQuestion();
+    }
+
+    function showVictory() {
+      const randomProduct = products[Math.floor(Math.random() * products.length)];
+      const victoryProductContent = document.getElementById('victoryProductContent');
+      victoryProductContent.innerHTML = `
+        <img src="${randomProduct.image}" alt="${randomProduct.name}" class="victory-product-image" onerror="this.src='./imagenes10/TIENDA DE MAQUILLAJE_files/polvo.png'">
+        <div class="victory-product-name">${randomProduct.name}</div>
+      `;
+
+      document.getElementById('victoryOverlay').style.display = 'flex';
+    }
+
+    function goToCatalog() {
+      window.location.href = 'imagenes10/catalogo.html';
+    }
+
+    function playAgain() {
+      // Ocultar overlay de pérdida
+      document.getElementById('lossOverlay').style.display = 'none';
+      // Mostrar mensaje de agradecimiento
+      document.getElementById('messageOverlay').style.display = 'flex';
+    }
+
+    function restartGame() {
+      currentQuestion = 0;
+      score = 0;
+      answered = false;
+      document.getElementById('scoreValue').textContent = '0';
+      // Ocultar cualquier modal de victoria
+      const victoryModal = document.getElementById('victoryModal');
+      if (victoryModal) {
+        const modal = bootstrap.Modal.getInstance(victoryModal);
+        if (modal) modal.hide();
+      }
+      loadQuestion();
+    }
+
+    document.addEventListener('DOMContentLoaded', loadQuestion);
+  </script>
+</body>
+</html>
+
+ 
